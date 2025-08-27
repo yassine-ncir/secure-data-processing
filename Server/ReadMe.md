@@ -1,55 +1,63 @@
-🔒 Secure Data Processing Server
+Secure Data Processing Server
 
-A standalone agent → server pipeline built in pure Java (no frameworks, no external MQs).
-This project demonstrates how to design and implement a modular, maintainable, and scalable data ingestion system.
+A standalone Java implementation of a secure data ingestion pipeline with agent-server communication, in-memory queuing, and modular processing components.
+
+📋 Overview
+
+This project demonstrates a secure, scalable data processing system built entirely in pure Java without external frameworks. It features TLS-secured communication, payload decryption, intelligent routing, and specialized servers for different data types.
 
 🚀 Architecture
 
-Flow:
-
-Components :
-
-1) Secure Socket Server: Accepts agent connections and reads data.
-
-2) Queue (In-Memory): Buffers incoming payloads for decoupling.
-
-3) Data Manipulation Layer: Decrypts payloads with JCA and validates.
-
-4) Router: Determines target server (File, Image, Log).
-
-5) Servers:
-
-      FileServer – handles file payloads.
-
-      ImageServer – handles image payloads.
-
-      LogServer – handles log payloads.
-
+<img width="800" height="600"  alt="deepseek_mermaid_20250827_34536c" src="https://github.com/user-attachments/assets/92242076-c14f-4089-99bc-7b7050932ebc" />
 
 📂 Project Structure
+text
 
 src/main/java/
-   ├── agent/                  # Agent-side code (client + encryption)
-   ├── server/
-   │    ├── common/            # Shared DTOs, enums, config
-   │    ├── socket/            # TLS socket server + client handlers
-   │    ├── queue/             # In-memory message queue + worker pool
-   │    ├── manipulation/      # JCA decryption + validation
-   │    ├── router/            # Routing to proper server
-   │    └── servers/           # FileServer, ImageServer, LogServer
-   └── Main.java               # Entry point
-
+├── agent/                    # Agent-side implementation
+│   ├── AgentClient.java      # Client with encryption capabilities
+│   └── CryptoUtil.java       # Encryption utilities (JCA)
+├── server/
+│   ├── common/               # Shared components
+│   │   ├── Payload.java      # Data transfer object
+│   │   ├── PayloadType.java  # Enumeration of payload types
+│   │   └── Config.java       # Server configuration
+│   ├── socket/               # Secure socket implementation
+│   │   ├── SecureSocketServer.java
+│   │   └── ClientHandler.java
+│   ├── queue/                # In-memory queuing system
+│   │   ├── MessageQueue.java
+│   │   └── WorkerPool.java
+│   ├── manipulation/         # Data processing
+│   │   ├── DecryptionEngine.java
+│   │   └── ValidationEngine.java
+│   ├── router/               # Routing logic
+│   │   └── PayloadRouter.java
+│   └── servers/              # Specialized servers
+│       ├── FileServer.java
+│       ├── ImageServer.java
+│       └── LogServer.java
+└── Main.java                 # Application entry point
 
 ⚡ Features
 
-Standalone Java (no frameworks).
+    Pure Java Implementation: No external frameworks or message queues
 
-TLS-secured socket server.
+    TLS-Secured Communication: Encrypted socket connections between agents and server
 
-In-memory blocking queue for buffering.
+    In-Memory Buffering: Blocking queue for decoupling ingestion and processing
 
-Thread pool for parallel data processing.
+    Parallel Processing: Thread pool for efficient data handling
 
-Modular design for extensibility (add new servers easily).
+    JCA Integration: Java Cryptography Architecture for payload decryption
 
-JCA-based payload decryption (plug in your crypto logic).
+    Modular Design: Easy to extend with new server types and processing logic
+
+    Payload Validation: Data integrity checks and validation
+
+🛠️ Installation & Usage
+Prerequisites
+
+    Java 17 or higher
+
+    Maven 3.6+
