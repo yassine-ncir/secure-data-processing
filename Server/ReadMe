@@ -1,1 +1,30 @@
+🔒 Secure Data Processing Server
+A standalone agent → server pipeline built in pure Java (no frameworks, no external MQs).
+This project demonstrates how to design and implement a modular, maintainable, and scalable data ingestion system.
+🔹Architecture : 
+      Agent -> Secure Socket -> Queue -> Data Manipulation (JCA decrypt) -> Router -> Servers
+
+🔹 Project Structure
+src/
+ └── main/java/
+     ├── server/
+     │    ├── common/
+     │    │     ├── Config.java
+     │    │     ├── MessageType.java
+     │    │     └── NormalizedData.java
+     │    ├── socket/
+     │    │     ├── SecureSocketServer.java
+     │    │     └── ClientHandler.java
+     │    ├── queue/
+     │    │     ├── MessageQueue.java
+     │    │     └── QueueWorker.java
+     │    ├── manipulation/
+     │    │     ├── PayloadDecryptor.java
+     │    │     └── PayloadValidator.java
+     │    ├── router/
+     │    │     └── Router.java
+     │    └── servers/
+     │          ├── file/FileServer.java
+     │          ├── image/ImageServer.java
+     │          └── log/LogServer.java
 
