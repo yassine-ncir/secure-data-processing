@@ -12,7 +12,7 @@ This project demonstrates a secure, scalable data processing system built entire
 
 📂 Project Structure
 text
-
+```
 src/main/java/
 ├── agent/                    # Agent-side implementation
 │   ├── AgentClient.java      # Client with encryption capabilities
@@ -38,7 +38,7 @@ src/main/java/
 │       ├── ImageServer.java
 │       └── LogServer.java
 └── Main.java                 # Application entry point
-
+```
 ⚡ Features
 
     Pure Java Implementation: No external frameworks or message queues
