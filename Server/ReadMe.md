@@ -109,7 +109,7 @@ Protocol:
 
     Client must first send:
 
-    [PayloadType][Metadata][Size][Data...]
+    [PayloadType][Size][Data...]
 
     This way, server knows what’s coming and how many bytes to expect.
 
