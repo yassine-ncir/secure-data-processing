@@ -9,7 +9,7 @@ public class Config {
     public static final int THREAD_POOL_SIZE = 10;
 
     // --- TLS Keystore Settings ---
-    public static final String KEYSTORE_PATH = "C:/Users/bennc/Downloads/gs-securing-web-main/gs-securing-web-main/test/Server/SecureDataProcessing/keystore/serverkeystore.jks";
+    public static final String KEYSTORE_PATH = "C:\\Users\\bennc\\Downloads\\gs-securing-web-main\\gs-securing-web-main\\test\\Server\\SecureDataProcessing\\src\\serverkeystore.jks";
     public static final String KEYSTORE_PASSWORD = "changeit";                  // Keystore password
     public static final String KEY_PASSWORD = "changeit";                       // Key password (if different)
 

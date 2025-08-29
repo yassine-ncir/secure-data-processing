@@ -4,11 +4,14 @@ import server.common.Config;
 
 import javax.net.ssl.*;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.KeyStore;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static server.common.Config.KEYSTORE_PATH;
 
 public class ServerSocket {
 
@@ -26,7 +29,8 @@ public class ServerSocket {
     public void start() throws Exception {
         // --- Step 1: Load Keystore ---
         KeyStore ks = KeyStore.getInstance("JKS");
-        ks.load(Files.newInputStream(Paths.get(Config.KEYSTORE_PATH)), Config.KEYSTORE_PASSWORD.toCharArray());
+        FileInputStream file = new FileInputStream(KEYSTORE_PATH);
+        ks.load(file, Config.KEYSTORE_PASSWORD.toCharArray());
 
         // --- Step 2: Initialize Key Manager ---
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
