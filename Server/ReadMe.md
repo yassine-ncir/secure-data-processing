@@ -60,8 +60,6 @@ Prerequisites
     Maven 3.6+
 
     
-Secure Server Socket & how to hanndel Agents time-currently
-
 how a TLS server handles multiple clients with one listening socket and multiple client sockets:
 ```
                      +------------------+
