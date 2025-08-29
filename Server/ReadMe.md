@@ -62,10 +62,10 @@ Prerequisites
 
     Maven 3.6+
 
-
+✅ Summary Table of server socket 
 ~~~
-| Concept                                                | True/False |
-| ------------------------------------------------------ | ---------- |
+| Concept                                                | True/False  |
+| ------------------------------------------------------ | ----------- |
 | One `ServerSocket` can accept many clients             | ✅ True     |
 | One `Socket` can handle many requests from same client | ✅ True     |
 | One `Socket` can be shared among clients               | ❌ False    |
