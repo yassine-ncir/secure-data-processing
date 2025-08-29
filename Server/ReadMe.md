@@ -71,6 +71,8 @@ Prerequisites
 | One `Socket` can be shared among clients               | ❌ False    |
 | TLS handshake happens per client socket                | ✅ True     |
 ~~~
+
+```
                      +------------------+
                      |   ServerSocket   |  <-- Listens on port 
                      +------------------+
@@ -93,3 +95,4 @@ Prerequisites
 | over same socket |   | over same socket |   | over same socket |
 +------------------+   +------------------+   +------------------+
 
+```
