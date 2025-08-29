@@ -101,17 +101,15 @@ how a TLS server handles multiple clients with one listening socket and multiple
 
 Streaming instead of loading:
 
-    *We don’t load big files into memory.
+    We don’t load big files into memory.
 
-    *We consume them chunk by chunk via InputStream.
+    We consume them chunk by chunk via InputStream.
 
 Protocol:
 
-    *Client must first send:
+    Client must first send:
 
-~~~
     [PayloadType][Metadata][Size][Data...]
-~~~
 
     This way, server knows what’s coming and how many bytes to expect.
 
