@@ -71,3 +71,25 @@ Prerequisites
 | One `Socket` can be shared among clients               | ❌ False    |
 | TLS handshake happens per client socket                | ✅ True     |
 ~~~
+                     +------------------+
+                     |   ServerSocket   |  <-- Listens on port 
+                     +------------------+
+                              |
+      --------------------------------------------------------
+      |                      |                       |
++------------+         +------------+          +------------+
+| ClientSocket|         | ClientSocket|        | ClientSocket|
+|  (Client A) |         |  (Client B) |        |  (Client C) |
++------------+         +------------+          +------------+
+      |                     |                       |
+      v                     v                       v
++-------------+       +-------------+        +-------------+
+| TLS Handshake|       | TLS Handshake|       | TLS Handshake|
++-------------+       +-------------+        +-------------+
+      |                     |                       |
+      v                     v                       v
++------------------+   +------------------+   +------------------+
+| Multiple Requests |   | Multiple Requests |   | Multiple Requests |
+| over same socket |   | over same socket |   | over same socket |
++------------------+   +------------------+   +------------------+
+
