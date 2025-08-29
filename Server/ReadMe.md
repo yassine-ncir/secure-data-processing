@@ -113,10 +113,10 @@ Protocol:
     [PayloadType][Metadata][Size][Data...]
 ~~~
 
-    *This way, server knows what’s coming and how many bytes to expect.
+    This way, server knows what’s coming and how many bytes to expect.
 
 Scalability:
 
-    *This works for files of GB size without breaking memory.
+    This works for files of GB size without breaking memory.
 
-    *Queue holds references to streams, not giant byte arrays.
+    Queue holds references to streams, not giant byte arrays.
