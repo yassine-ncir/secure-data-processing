@@ -96,3 +96,25 @@ how a TLS server handles multiple clients with one listening socket and multiple
 +------------------+   +------------------+   +------------------+
 
 ```
+
+🔑 Key Points
+
+Streaming instead of loading:
+
+    We don’t load big files into memory.
+
+    We consume them chunk by chunk via InputStream.
+
+Protocol:
+
+    Client must first send:
+
+    [PayloadType][Metadata][Size][Data...]
+
+    This way, server knows what’s coming and how many bytes to expect.
+
+Scalability:
+
+    This works for files of GB size without breaking memory.
+
+    Queue holds references to streams, not giant byte arrays.
