@@ -61,3 +61,13 @@ Prerequisites
     Java 17 or higher
 
     Maven 3.6+
+
+
+~~~
+| Concept                                                | True/False |
+| ------------------------------------------------------ | ---------- |
+| One `ServerSocket` can accept many clients             | ✅ True     |
+| One `Socket` can handle many requests from same client | ✅ True     |
+| One `Socket` can be shared among clients               | ❌ False    |
+| TLS handshake happens per client socket                | ✅ True     |
+~~~
