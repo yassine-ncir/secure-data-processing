@@ -14,25 +14,22 @@ This project demonstrates a secure, scalable data processing system built entire
 text
 ```
 src/main/java/
-├── agent/                    # Agent-side implementation
-│   ├── AgentClient.java      # Client with encryption capabilities
-│   └── CryptoUtil.java       # Encryption utilities (JCA)
 ├── server/
 │   ├── common/               # Shared components
-│   │   ├── Payload.java      # Data transfer object
-│   │   ├── PayloadType.java  # Enumeration of payload types
+│   │   ├── DataDto.java      # Data transfer object
+│   │   ├── DataType.java    # Enumeration of payload types
 │   │   └── Config.java       # Server configuration
 │   ├── socket/               # Secure socket implementation
-│   │   ├── SecureSocketServer.java
-│   │   └── ClientHandler.java
+│   │   ├── ServerSocket.java
+│   │   └── AgentHandler.java
 │   ├── queue/                # In-memory queuing system
-│   │   ├── MessageQueue.java
-│   │   └── WorkerPool.java
+│   │   ├── MessageQueue.java  # interface
+│   │   └── MessageQueueImpl.java
 │   ├── manipulation/         # Data processing
 │   │   ├── DecryptionEngine.java
 │   │   └── ValidationEngine.java
 │   ├── router/               # Routing logic
-│   │   └── PayloadRouter.java
+│   │   └── DataRouter.java
 │   └── servers/              # Specialized servers
 │       ├── FileServer.java
 │       ├── ImageServer.java
@@ -62,15 +59,9 @@ Prerequisites
 
     Maven 3.6+
 
-✅ Summary Table of server socket 
-~~~
-| Concept                                                | True/False  |
-| ------------------------------------------------------ | ----------- |
-| One `ServerSocket` can accept many clients             | ✅ True     |
-| One `Socket` can handle many requests from same client | ✅ True     |
-| One `Socket` can be shared among clients               | ❌ False    |
-| TLS handshake happens per client socket                | ✅ True     |
-~~~
+    
+Secure Server Socket & how to hanndel Agents time-currently
+
 how a TLS server handles multiple clients with one listening socket and multiple client sockets:
 ```
                      +------------------+
@@ -96,6 +87,15 @@ how a TLS server handles multiple clients with one listening socket and multiple
 +------------------+   +------------------+   +------------------+
 
 ```
+✅ Summary Table of server socket 
+~~~
+| Concept                                                | True/False  |
+| ------------------------------------------------------ | ----------- |
+| One `ServerSocket` can accept many clients             | ✅ True     |
+| One `Socket` can handle many requests from same client | ✅ True     |
+| One `Socket` can be shared among clients               | ❌ False    |
+| TLS handshake happens per client socket                | ✅ True     |
+~~~
 
 🔑 Key Points
 
