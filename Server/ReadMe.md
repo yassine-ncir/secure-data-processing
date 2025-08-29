@@ -71,7 +71,7 @@ Prerequisites
 | One `Socket` can be shared among clients               | ❌ False    |
 | TLS handshake happens per client socket                | ✅ True     |
 ~~~
-
+how a TLS server handles multiple clients with one listening socket and multiple client sockets:
 ```
                      +------------------+
                      |   ServerSocket   |  <-- Listens on port 
