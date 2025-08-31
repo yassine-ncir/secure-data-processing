@@ -139,7 +139,7 @@ Scalability:
  |                          Data (payload)                       |
  └───────────────────────────────────────────────────────────────┘
 ~~~
-                               <-><-><-><-><-><-><-><-><-><-><-><-> Robust packet structure <-><-><-><-><-><-><-><-><-><-><-><->
+                          <-><-><-><-><-><-><-><-><-><-><-><-> 📦 Packet Structure <-><-><-><-><-><-><-><-><-><-><-><->
                                         
 basically describing a situation where your client/server currently just “throw raw data over TLS/TCP,” but you now want to support:
 
@@ -163,35 +163,63 @@ Why you need a protocol ?
         If tomorrow you add more fields or new data types, you don’t want to break compatibility.
         
 The solution : "Length-Prefixed JSON + Raw Payload"
+We’ll use a two-part message:
 
         HEADER_LENGTH(4 bytes) | HEADER(JSON string) | PAYLOAD(DATA_SIZE bytes)
+
+1. Header :
+    * Length-prefixed JSON (easy to debug & extend).
+
+    * First 4 bytes (big-endian int) → length of JSON header.
+
+    *  Header JSON contains metadata (type, size, etc.)
+      
+Example header JSON:
 ~~~
 {
   "clientId": "abc123",
-  "machineIp": "192.168.1.5",
-  "os": "Linux",
-  "time": "2025-08-31T07:05:00Z",
   "type": "file",
-  "name": "big_data.bin",
-  "size": 2147483648
+  "name": "video.mp4",
+  "size": 2147483648,
+  "chunkSize": 65536,
+  "chunkIndex": 0,
+  "isLastChunk": false
 }
 ~~~
- * Easy debugging (you can log headers).
+2. Payload
+    * Immediately follows the header.
 
- * Server reads first 4 bytes → knows header size → parse JSON → then read payload.
-
- * Good for mixed traffic (text, files, etc.).
-
- * Slight overhead vs binary.
+    * Raw bytes of the data (could be the whole file, or just a chunk).
+      
    
-Handling Large Files (e.g., 2GB) :
+🔄 Chunked Transfer Design
+For large files, we don’t send everything in one packet. Instead:
 
-    + Stream payloads in chunks: never buffer whole file in memory.
+    1- Split file into chunks (e.g. 64KB each).
 
-    + Your protocol should allow chunked transfer:
+    2- For each chunk:
 
-        Send header (with file metadata & size).
+        Create a header with chunkIndex, chunkSize, isLastChunk.
 
-        Then stream payload in e.g. 64KB chunks until size is reached.
+        Send header + payload.
 
-    + The server writes chunks directly to disk/queue.
+    3- Server reassembles chunks in order until isLastChunk = true.
+
+This way, you can stream a 2GB file without filling memory.
+
+🔧 Example Transmission
+
+Let’s say client wants to send a 2GB file (video.mp4):
+
+    1) Client splits file into chunks of 64KB.
+        → total ≈ 32,768 chunks.
+
+    2) For first chunk:
+    
+    3) Repeat until last chunk:
+
+        chunkIndex = 32767
+
+        isLastChunk = true
+
+    4) Server writes chunks sequentially to disk.
