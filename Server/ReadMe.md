@@ -7,8 +7,7 @@ A standalone Java implementation of a secure data ingestion pipeline with agent-
 This project demonstrates a secure, scalable data processing system built entirely in pure Java without external frameworks. It features TLS-secured communication, payload decryption, intelligent routing, and specialized servers for different data types.
 
 🚀 Architecture
-
-<img width="800" height="600"  alt="deepseek_mermaid_20250827_34536c" src="https://github.com/user-attachments/assets/92242076-c14f-4089-99bc-7b7050932ebc" />
+<img width="2144" height="681" alt="secure-data-processing diagram drawio" src="https://github.com/user-attachments/assets/78e0e67d-fe1c-495d-990c-9f40167dbcb6" />
 
 📂 Project Structure
 text
